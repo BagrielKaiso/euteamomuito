@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Tempo do Meu Amor</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(145deg, #ffe0ec, #ffd6e8);
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+      color: #5a1a3b;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #a20044;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.4em;
+      font-style: italic;
+      max-width: 80%;
+      color: #82234d;
+      margin-bottom: 30px;
+    }
+
+    .counter {
+      font-family: 'Courier New', monospace;
+      font-size: 2em;
+      background: rgba(255, 255, 255, 0.6);
+      color: #a20044;
+      padding: 15px 25px;
+      border-radius: 20px;
+      border: 2px solid #ffb5cc;
+      margin-bottom: 30px;
+    }
+
+    .counter span {
+      font-weight: bold;
+      color: #d4005f;
+    }
+
+    .flower {
+      position: absolute;
+      transform: scale(0);
+      opacity: 0;
+      transition: transform 2s ease-out, opacity 2s ease-out;
+      pointer-events: none;
+    }
+
+    .flower img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      background: transparent;
+      animation: growFlower 2s ease-out forwards;
+    }
+
+    @keyframes growFlower {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>O tempo que continuo te Amando muitoo!</h1>
+  <p>A cada dia, a cada hora, a cada minuto eu continuo te amando cada vez mais até o infinito</p>
+
+  <div class="counter" id="counter"></div>
+
+  <script>
+    const startDate = new Date('2025-05-03T00:00:00');
+
+    function getTimeSinceStartDate() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      return { days, hours, minutes, seconds };
+    }
+
+    function createFlower(day) {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+
+      const flowerImg = document.createElement('img');
+      flowerImg.src = '../img/flores.png'; // caminho local
+      flower.appendChild(flowerImg);
+
+      const xPos = Math.random() * (window.innerWidth - 100);
+      const yPos = Math.random() * (window.innerHeight - 150);
+
+      flower.style.left = `${xPos}px`;
+      flower.style.top = `${yPos}px`;
+
+      document.body.appendChild(flower);
+
+      setTimeout(() => {
+        flower.style.transform = `scale(1)`;
+        flower.style.opacity = '1';
+      }, 100);
+    }
+
+    function updateCounter() {
+      const { days, hours, minutes, seconds } = getTimeSinceStartDate();
+      document.getElementById('counter').innerHTML = `
+        Tempo desde 03/05/2025 às 00:00:<br>
+        <span>${days} dias, ${hours} horas, ${minutes} minutos, ${seconds} segundos</span>
+      `;
+
+      if (seconds === 0) {
+        createFlower(days);
+      }
+    }
+
+    setInterval(updateCounter, 1000);
+    updateCounter();
+  </script>
+</body>
+</html>

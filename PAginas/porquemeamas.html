@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motivos para te Amar</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #ffebf0;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 90%;
+      max-width: 650px;
+      height: 80%;
+      background: #ff416c;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .bloco {
+      position: absolute;
+      width: 90%;
+      max-width: 500px;
+      background: #fff;
+      color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateX(100%) scale(0.8);
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+
+    .bloco.ativo {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      z-index: 1;
+    }
+
+    .bloco h2 {
+      color: #ff416c;
+      font-size: 2em;
+      margin-bottom: 15px;
+      font-family: 'Georgia', serif;
+    }
+
+    .bloco p {
+      font-size: 1.3em;
+      line-height: 1.6em;
+      font-family: 'Times New Roman', serif;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 15px 30px;
+      background-color: #ff416c;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.4em;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #ff4b2b;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .bloco {
+        max-width: 90%;
+      }
+
+      .btn {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="bloco ativo" id="bloco1">
+      <h2>Motivo 1</h2>
+      <p>Eu te amo tanto porque seus <b>olhos</b> me lembram o brilho das estrelas, tão belos como a noite estrelada.</p>
+      <button class="btn" onclick="abrirBloco(2)">Próximo Motivo</button>
+    </div>
+
+    <div class="bloco" id="bloco2">
+      <h2>Motivo 2</h2>
+      <p>Eu amo tanto seu <b>sorriso</b>, ele me cativa de diversas maneiras e me encanta tanto que sempre me perco nele ao olhar.</p>
+      <button class="btn" onclick="abrirBloco(3)">Próximo Motivo</button>
+    </div>
+
+    <div class="bloco" id="bloco3">
+      <h2>Motivo 3</h2>
+      <p>Eu te amo tanto porque você é muito <b>bela</b>, uma verdadeira deusa grega que apareceu neste mundo. Eu amo me perder nos seus olhos, no seu sorriso, na sua voz, no seu jeito de ser e viver. Sua felicidade é contagiante.</p>
+      <button class="btn" onclick="abrirBloco(4)">Próximo Motivo</button>
+    </div>
+
+    <div class="bloco" id="bloco4">
+      <h2>Motivo 4</h2>
+      <p>Eu te amo porque você não me odeia e conseguiu suportar quem eu realmente sou. Você não se distanciou mesmo quando fui chato.</p>
+      <button class="btn" onclick="irParaProximaPagina()">Entãoo!</button>
+    </div>
+  </div>
+
+  <script>
+    const blocos = document.querySelectorAll('.bloco');
+    let current = 0;
+
+    function abrirBloco(nextIndex) {
+      blocos[current].classList.remove('ativo');
+      blocos[nextIndex - 1].classList.add('ativo');
+      current = nextIndex - 1;
+    }
+
+    function irParaProximaPagina() {
+      window.location.href = "paginacontadoraflor.html"; // Altere para o caminho correto da próxima página
+    }
+  </script>
+
+</body>
+
+</html>

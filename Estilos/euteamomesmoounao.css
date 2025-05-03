@@ -1,0 +1,104 @@
+/* Estilo geral da página */
+body {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo do parágrafo */
+p {
+    font-size: 2em;
+    color: white;
+    margin-bottom: 40px;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+/* Container da barra de progresso */
+.love-bar-container {
+    width: 80%;
+    max-width: 600px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* A barra de progresso que cresce */
+.love-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    border-radius: 20px;
+    transition: width 0.2s linear;
+}
+
+/* Texto da porcentagem */
+.love-percent {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    color: #fff;
+    font-weight: bold;
+    z-index: 2;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+/* Estilo do botão */
+#botao1 {
+    display: none;
+    margin-top: 30px;
+    padding: 16px 32px;
+    border-radius: 30px;
+    border: none;
+    background-color: #ff416c;
+    color: #fff;
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+}
+
+#botao1:hover {
+    background-color: #ff4b2b;
+    transform: scale(1.05);
+}
+
+#botao1 a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Animação da quebra da barra */
+.love-bar::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: -15px;
+    top: 10%;
+    width: 30px;
+    height: 80%;
+    background: #fff;
+    border-radius: 50% 50% 0 0;
+    box-shadow: 0 8px 16px rgba(255, 65, 108, 0.2);
+    opacity: 0;
+    animation: breakBar 0.4s 1.5s forwards;
+}
+
+@keyframes breakBar {
+    to {
+        opacity: 1;
+        transform: translateY(-10px) rotate(10deg);
+    }
+}
