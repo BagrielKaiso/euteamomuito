@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amar</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Courier New', monospace;
+      background: radial-gradient(circle, #0d0d0d, #000000);
+      animation: bgColor 30s infinite alternate;
+    }
+
+    @keyframes bgColor {
+      0%   { background: radial-gradient(circle, #0d0d0d, #000000); }
+      50%  { background: radial-gradient(circle, #220022, #000011); }
+      100% { background: radial-gradient(circle, #0d0d0d, #000000); }
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      transition: transform 2s ease-out;
+      user-select: none;
+      z-index: 1;
+      color: red;
+      text-shadow: 0 0 8px #ff4d4d;
+      opacity: 0.8;
+    }
+
+    .love-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: white;
+      z-index: 10;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .love-text {
+      position: absolute;
+      white-space: nowrap;
+      opacity: 0.7;
+      text-shadow: 0 0 4px #fff;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+      z-index: 0;
+      opacity: 0.1;
+      animation: moveStars 60s linear infinite;
+    }
+
+    @keyframes moveStars {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
+    /* Estilos do botão flutuante no centro da tela */
+    .floating-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Centraliza o botão */
+      background-color: #ff4d4d;
+      color: white;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transform: translate(-50%, -50%) translateY(0);
+      opacity: 0;
+      animation: floatButton 1.5s ease-out 10s forwards;
+      z-index: 20; /* Garantir que o botão fique na frente de tudo */
+    }
+
+    @keyframes floatButton {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateY(0);
+      }
+    }
+
+    .floating-button a {
+      color: white;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="love-container" id="loveContainer"></div>
+
+<!-- Botão flutuante -->
+<button class="floating-button">
+  <a href="porquemeamas.html">Por que me Amas?</a>
+</button>
+
+<script>
+  const heartCount = 150;
+  const container = document.getElementById("loveContainer");
+
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createExplosion() {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    for (let i = 0; i < heartCount; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '❤️';
+
+      const size = random(16, 32);
+      heart.style.fontSize = `${size}px`;
+      heart.style.left = `${centerX}px`;
+      heart.style.top = `${centerY}px`;
+
+      document.body.appendChild(heart);
+
+      // Animando os corações para se espalharem pela tela
+      setTimeout(() => {
+        const angle = random(0, 2 * Math.PI);
+        const distance = random(200, window.innerWidth > 600 ? 600 : 400);  // maior distância
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        const rotate = random(-720, 720);
+        const duration = random(3, 5);  // duração da animação de movimento
+
+        // Definir o movimento dos corações
+        heart.style.transition = `transform ${duration}s ease-in-out`;
+        heart.style.transform = `translate(${dx}px, ${dy}px) rotate(${rotate}deg)`;
+
+        // Tornando a opacidade mais baixa conforme a animação
+        heart.style.opacity = '0.6';
+
+      }, 800 + i * 5); // atraso progressivo na explosão
+    }
+  }
+
+  function chuvaDeAmor() {
+    const startTime = performance.now();
+    const duration = 30000; // 30 segundos
+    let baseSize = 36;
+    let intervalo = 200;
+
+    function spawnLove() {
+      const now = performance.now();
+      const elapsed = now - startTime;
+      if (elapsed > duration) return;
+
+      const text = document.createElement("div");
+      text.className = "love-text";
+      text.textContent = "Eu te amo muito";
+      text.style.left = `${random(0, 100)}%`;
+      text.style.top = `${random(0, 100)}%`;
+      text.style.fontSize = `${baseSize}px`;
+
+      container.appendChild(text);
+
+      baseSize *= 0.98;
+      intervalo *= 0.96;
+
+      if (baseSize < 10) baseSize = 10;
+      if (intervalo < 15) intervalo = 15;
+
+      setTimeout(spawnLove, intervalo);
+    }
+
+    spawnLove();
+  }
+
+  window.addEventListener('load', () => {
+    createExplosion();
+
+    setTimeout(() => {
+      chuvaDeAmor();
+    }, 2500);
+  });
+</script>
+
+</body>
+</html>
